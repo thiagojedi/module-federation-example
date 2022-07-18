@@ -3,10 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": " webpack serve",
-    "build": "webpack --mode production",
-    "lint-js": "eslint --fix ./src --ext js,jsx",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook -o public"
+    "build": "webpack --mode production"
   },
   "license": "MIT",
   "author": "Marc",
