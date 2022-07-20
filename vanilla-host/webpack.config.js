@@ -15,7 +15,7 @@ const developmentMode = process.env.NODE_ENV === 'development';
 module.exports = {
   entry: path.join(paths.SRC, 'index.js'),
   output: {
-    publicPath: 'http://localhost:3001/',
+    publicPath: 'http://localhost:3002/',
   },
   module: {
     rules: [
@@ -26,22 +26,22 @@ module.exports = {
       },
     ],
   },
+  devtool: developmentMode && 'source-map',
   devServer: {
     open: true,
-    port: 3001,
+    port: 3002,
+    hot: false,
     historyApiFallback: true,
   },
-
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  devtool: developmentMode && 'source-map',
   plugins: [
     new ModuleFederationPlugin({
-      name: "remote",
+      name: "host",
       filename: "remoteEntry.js",
-      exposes: {
-        './Counter': './src/components/counter/index.js',
+      remotes: {
+        remote: 'remote@http://localhost:3001/remoteEntry.js',
       },
       shared: dependencies,
     }),

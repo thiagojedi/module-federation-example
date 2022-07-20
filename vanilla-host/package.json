@@ -1,0 +1,21 @@
+{
+  "name": "host",
+  "version": "1.0.0",
+  "scripts": {
+    "start": " webpack serve",
+    "build": "webpack --mode production"
+  },
+  "license": "MIT",
+  "author": "Marc",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "babel-loader": "^8.2.2",
+    "html-webpack-plugin": "^5.3.2",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.2"
+  }
+}
