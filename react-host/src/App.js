@@ -4,7 +4,7 @@ const Counter = lazy(() => import('remote/Counter'));
 
 const App = () => (
   <div>
-    <div>HOST</div>
+    <div>REACT HOST</div>
     <Suspense fallback={null}>
       <Counter />
     </Suspense>

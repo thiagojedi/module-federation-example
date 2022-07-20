@@ -1,5 +1,4 @@
 const path = require('path');
-const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 const { dependencies } = require('./package.json');
 
@@ -11,10 +10,12 @@ const paths = {
 };
 
 const developmentMode = process.env.NODE_ENV === 'development';
+const exposeAsMF = !!process.env.MF;
 
 module.exports = {
   entry: path.join(paths.SRC, 'index.js'),
   output: {
+    filename: 'remote.js',
     publicPath: 'http://localhost:3001/',
   },
   module: {
@@ -27,27 +28,26 @@ module.exports = {
     ],
   },
   devServer: {
-    open: true,
     port: 3001,
+    hot: false,
     historyApiFallback: true,
   },
-
+  plugins: [],
   resolve: {
     extensions: ['.js', '.jsx'],
   },
   devtool: developmentMode && 'source-map',
-  plugins: [
-    new ModuleFederationPlugin({
-      name: "remote",
-      filename: "remoteEntry.js",
-      exposes: {
-        './Counter': './src/components/counter/index.js',
-      },
-      shared: dependencies,
-    }),
-    new HtmlWebPackPlugin({
-      template: "./src/index.html",
-    }),
-  ],
   mode: process.env.NODE_ENV || 'production',
 };
+
+if (exposeAsMF) {
+  const MFPlugin = new ModuleFederationPlugin({
+    name: "remote",
+    filename: "remoteEntry.js",
+    exposes: {
+      './Counter': './src/index.js',
+    },
+    shared: dependencies,
+  });
+  module.exports.plugins.push(MFPlugin);
+}

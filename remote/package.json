@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": " webpack serve",
+    "start-mf": "MF=true webpack serve",
     "build": "webpack --mode production"
   },
   "license": "MIT",
