@@ -15,6 +15,7 @@ const exposeAsMF = !!process.env.MF;
 module.exports = {
   entry: path.join(paths.SRC, 'index.js'),
   output: {
+    path: paths.DIST,
     filename: 'remote.js',
     publicPath: 'http://localhost:3001/',
   },
