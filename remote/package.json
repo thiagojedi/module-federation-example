@@ -2,7 +2,7 @@
   "name": "host",
   "version": "1.0.0",
   "scripts": {
-    "start": " webpack serve",
+    "start": "MF=true webpack serve",
     "start-mf": "MF=true webpack serve",
     "build": "webpack --mode production"
   },
