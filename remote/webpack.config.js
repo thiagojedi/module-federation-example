@@ -17,7 +17,7 @@ module.exports = {
   output: {
     path: paths.DIST,
     filename: 'remote.js',
-    publicPath: 'http://localhost:3001/',
+    publicPath: '/',
   },
   module: {
     rules: [
