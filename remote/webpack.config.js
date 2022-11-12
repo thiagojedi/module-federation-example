@@ -17,7 +17,7 @@ module.exports = {
   output: {
     path: paths.DIST,
     filename: 'remote.js',
-    publicPath: '/',
+    publicPath: 'https://module-federation-example-rho.vercel.app/',
   },
   module: {
     rules: [
