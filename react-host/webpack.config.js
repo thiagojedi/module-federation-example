@@ -6,7 +6,7 @@ const { dependencies } = require('./package.json');
 // Constant with our paths
 const paths = {
   ROOT: path.resolve(__dirname),
-  DIST: path.resolve(__dirname, 'dist'),
+  DIST: path.resolve(__dirname, 'public'),
   SRC: path.resolve(__dirname, 'src'),
 };
 
@@ -15,6 +15,7 @@ const developmentMode = process.env.NODE_ENV === 'development';
 module.exports = {
   entry: path.join(paths.SRC, 'index.js'),
   output: {
+    path: paths.DIST,
     publicPath: '/',
   },
   module: {
