@@ -5,6 +5,7 @@
 - clone the repo
 - `cd js-host npm i`
 - `cd react-host npm i`
+- `cd nextjs-host npm i`
 - `cd remote npm i`
 
 ## Development FM
@@ -12,8 +13,9 @@
 - `cd remote npm run start-mf`
 - `cd js-host npm start`
 - `cd react-host npm start`
+- `cd nextjs-host npm start`
 
-You should be able to load the Counter exposed as FM inside js-host and react-host.
+You should be able to load the Counter exposed as FM inside the consumers.
 
 ## Development MF
 
