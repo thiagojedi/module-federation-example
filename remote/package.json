@@ -4,7 +4,7 @@
   "scripts": {
     "start": "webpack serve",
     "start-mf": "MF=true webpack serve",
-    "build": "webpack --mode production"
+    "build": "MF=true webpack --mode production"
   },
   "license": "MIT",
   "author": "Marc",
