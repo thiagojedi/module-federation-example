@@ -43,7 +43,7 @@ module.exports = {
       name: "host",
       filename: "remoteEntry.js",
       remotes: {
-        remote: 'remote@http://localhost:3001/remoteEntry.js',
+        remote: 'remote@https://module-federation-example-rho.vercel.app/remoteEntry.js',
       },
       shared: dependencies,
     }),
