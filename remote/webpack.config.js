@@ -10,14 +10,14 @@ const paths = {
 };
 
 const developmentMode = process.env.NODE_ENV === 'development';
-const exposeAsMF = !!process.env.MF;
+const exposeAsMF = true;
 
 module.exports = {
   entry: path.join(paths.SRC, 'index.js'),
   output: {
     path: paths.DIST,
     filename: 'remote.js',
-    publicPath: 'https://module-federation-example-rho.vercel.app/',
+    publicPath: 'http://localhost:3001/',
   },
   module: {
     rules: [
