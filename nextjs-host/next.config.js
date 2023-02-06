@@ -11,7 +11,7 @@ const nextConfig = {
         name: "host",
         filename: "remoteEntry.js",
         remotes: {
-          remote: 'remote@http://localhost:3001/remoteEntry.js'
+          remote: 'remote@https://module-federation-example-rho.vercel.app/remoteEntry.js'
         },
         shared: {
           react: '18.2.0',

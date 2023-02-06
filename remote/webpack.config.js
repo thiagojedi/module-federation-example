@@ -1,6 +1,6 @@
 const path = require('path');
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
-const { dependencies } = require('./package.json');
+const {dependencies} = require('./package.json');
 
 // Constant with our paths
 const paths = {
@@ -32,6 +32,9 @@ module.exports = {
     port: 3001,
     hot: false,
     historyApiFallback: true,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    }
   },
   plugins: [],
   resolve: {
@@ -39,12 +42,20 @@ module.exports = {
   },
   devtool: developmentMode && 'source-map',
   mode: process.env.NODE_ENV || 'production',
+  experiments: {
+    outputModule: true,
+  },
 };
 
 if (exposeAsMF) {
   const MFPlugin = new ModuleFederationPlugin({
     name: "remote",
     filename: "remoteEntry.js",
+
+    library: {
+      type: "module",
+      export: "./Counter"
+    },
     exposes: {
       './Counter': './src/index.js',
     },

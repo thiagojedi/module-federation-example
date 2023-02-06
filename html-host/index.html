@@ -4,20 +4,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline' http://192.168.15.84:3001;">
   <title>HTML HOST</title>
-  <script src="http://localhost:3001/remote.js"></script>
+<!--  <script src="http://localhost:3001/remote.js"></script>-->
   <style>
     button {
       color: red;
     }
   </style>
+  <script type="module">
+    import Counter from 'http://192.168.15.84:3001/remoteEntry.js'
+    
+    console.log(Counter)
+  </script>
 <body>
   <div>HTML HOST</div>
   <div id="app"></div>
   <hr>
   <div>SHADOW DOM</div>
   <div id="shadow-host"></div>
-  <script src="./index.js"></script>
+<!--  <script src="./index.js"></script>-->
 </body>
 
 </html>
