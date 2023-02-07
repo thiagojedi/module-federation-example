@@ -42,22 +42,15 @@ module.exports = {
   },
   devtool: developmentMode && 'source-map',
   mode: process.env.NODE_ENV || 'production',
-  experiments: {
-    outputModule: true,
-  },
 };
 
 if (exposeAsMF) {
   const MFPlugin = new ModuleFederationPlugin({
     name: "remote",
     filename: "remoteEntry.js",
-
-    library: {
-      type: "module",
-      export: "./Counter"
-    },
     exposes: {
-      './Counter': './src/index.js',
+      './Counter': './src/Counter.js',
+      './Loading': './src/Loading.js'
     },
     shared: dependencies,
   });
