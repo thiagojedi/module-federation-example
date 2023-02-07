@@ -1,7 +1,5 @@
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
-const { dependencies } = require('./package.json');
 
 // Constant with our paths
 const paths = {
@@ -39,14 +37,6 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   plugins: [
-    new ModuleFederationPlugin({
-      name: "host",
-      filename: "remoteEntry.js",
-      remotes: {
-        remote: 'remote@https://module-federation-example-rho.vercel.app/remoteEntry.js',
-      },
-      shared: dependencies,
-    }),
     new HtmlWebPackPlugin({
       template: "./src/index.html",
     }),
