@@ -7,8 +7,10 @@ import { Loading } from "../components/loading";
 
 import { importRemote } from "@module-federation/utilities";
 
+//@ts-ignore
+const Counter = dynamic(() => import("remote/Counter"));
+
 export default function Home() {
-  const customComponentFromDatabase = "remote/Counter"
   // @ts-ignore
   // The following does not work as the internal state is lost after re-rendering of Home
   // const Counter = dynamic(() => import('remote/Counter'))
@@ -16,15 +18,18 @@ export default function Home() {
   // @ts-ignore
   // The following DOES work, but the suspense component goes to "fallback" in each re-rendering of Home
   // let counter = 'Counter';
-  // const Counter = lazy(() => import('remote/' + counter))
+  // const Counter = lazy(() => import('remote/Counter'))
 
   // @ts-ignore
+  // Another way to use the module federation
+  // const remoteScope = "remote"
+  // const remoteModule = "Counter"
   // const Counter = lazy(
   //   () =>
   //     importRemote({
   //       url: "https://module-federation-example-rho.vercel.app",
-  //       scope: "remote",
-  //       module: "Counter",
+  //       scope: remoteScope,
+  //       module: remoteModule,
   //     })
   // );
 
@@ -40,10 +45,7 @@ export default function Home() {
       <div>NEXT-JS HOST</div>
       <section>
         <header>This is the suspense:</header>
-        <Suspense fallback={null}>
-          {/* @ts-ignore */}
-          <Counter startCount={10} />
-        </Suspense>
+        <Counter />
       </section>
       <br />
       <section>
