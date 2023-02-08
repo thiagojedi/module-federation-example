@@ -1,19 +1,13 @@
-import { useState, createElement } from "react";
+import {useState} from "react";
 
 const Counter = ({ startCount }) => {
   const [count, setCount] = useState(startCount || 0);
 
-  return createElement(
-    "div",
-    null,
-    createElement("p", null, `You clicked ${count} times`),
-    createElement(
-      "button",
-      {
-        onClick: () => setCount(count + 1),
-      },
-      "Click Me!"
-    )
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount((v) => v + 1)}>Click Me!</button>
+    </div>
   );
 };
 export default Counter;

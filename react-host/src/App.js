@@ -1,31 +1,42 @@
-import { lazy, Suspense, useState } from "react";
-import { importRemote } from "@module-federation/utilities";
+import { useEffect, useState } from "react";
+import CustomComponent from "./custom-component";
 
-const customComponents = ["remote/Counter"];
+const customComponentFromDatabase = [
+  {
+    id: "remote/Counter",
+    props: {
+      startCount: 10,
+    },
+  },
+  { id: "remote/Loading" },
+];
 
 const App = () => {
   const [value, setValue] = useState(false);
 
+  const [component, setComponent] = useState([]);
+  useEffect(() => {
+    const timeout = setTimeout(
+      () => setComponent(customComponentFromDatabase),
+      5000
+    );
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <div>
       <div>REACT HOST</div>
-      {customComponents
-        .map((component) => component.split("/"))
-        .map(([scope, module]) => {
-          const CustomComponent = lazy(() =>
-            importRemote({
-              url: "https://module-federation-example-rho.vercel.app",
-              scope,
-              module,
-              remoteEntryFileName: 'remoteEntry.js'
-            })
-          );
-          return (
-            <Suspense fallback={null}>
-              <CustomComponent {...{startCount: 10}} />
-            </Suspense>
-          );
-        })}
+      <section>
+        <header>This is the suspense:</header>
+        {component.map((component) => (
+          <CustomComponent
+            key={component.id}
+            componentId={component.id}
+            componentProps={component.props}
+          />
+        ))}
+      </section>
+      <br />
 
       <section>
         <header>This is a diferent component changing current state</header>

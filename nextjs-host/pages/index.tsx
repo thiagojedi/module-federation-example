@@ -1,34 +1,34 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 import Head from "next/head";
 import dynamic from "next/dynamic";
 
-import { Loading } from "../components/loading";
+const CustomComponent = dynamic(
+  () => import("../components/custom-component"),
+  { ssr: false }
+);
 
-import { importRemote } from "@module-federation/utilities";
+const customComponentFromDatabase = [
+  {
+    id: "remote/Counter",
+    props: {
+      startCount: 10,
+    },
+  },
+  { id: "remote/Loading" },
+];
 
 export default function Home() {
-  const customComponentFromDatabase = "remote/Counter"
-  // @ts-ignore
-  // The following does not work as the internal state is lost after re-rendering of Home
-  // const Counter = dynamic(() => import('remote/Counter'))
-
-  // @ts-ignore
-  // The following DOES work, but the suspense component goes to "fallback" in each re-rendering of Home
-  // let counter = 'Counter';
-  // const Counter = lazy(() => import('remote/' + counter))
-
-  // @ts-ignore
-  // const Counter = lazy(
-  //   () =>
-  //     importRemote({
-  //       url: "https://module-federation-example-rho.vercel.app",
-  //       scope: "remote",
-  //       module: "Counter",
-  //     })
-  // );
-
   const [value, setValue] = useState(false);
+
+  const [component, setComponent] = useState<any[]>([]);
+  useEffect(() => {
+    const timeout = setTimeout(
+      () => setComponent(customComponentFromDatabase),
+      5000
+    );
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <div>
@@ -40,10 +40,13 @@ export default function Home() {
       <div>NEXT-JS HOST</div>
       <section>
         <header>This is the suspense:</header>
-        <Suspense fallback={null}>
-          {/* @ts-ignore */}
-          <Counter startCount={10} />
-        </Suspense>
+        {component.map((component) => (
+          <CustomComponent
+            key={component.id}
+            componentId={component.id}
+            componentProps={component.props}
+          />
+        ))}
       </section>
       <br />
       <section>
@@ -51,11 +54,6 @@ export default function Home() {
         <button onClick={() => setValue((v) => !v)}>
           Toggle {value ? "on" : "off"}
         </button>
-      </section>
-      <br />
-      <section>
-        <header>Changing state inside other component</header>
-        <Loading />
       </section>
     </div>
   );
